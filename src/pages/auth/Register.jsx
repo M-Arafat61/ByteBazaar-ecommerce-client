@@ -1,15 +1,15 @@
 import { useState } from "react";
 import {
   FormControl,
-  FormLabel,
+  Text,
   FormErrorMessage,
   FormHelperText,
   Input,
   Button,
 } from "@chakra-ui/react";
-import toast from "react-hot-toast";
 import { sendSignInLinkToEmail } from "firebase/auth";
 import { auth } from "../../firebase.config";
+import { toast } from "react-toastify";
 
 const Register = () => {
   const [email, setEmail] = useState("");
@@ -20,24 +20,30 @@ const Register = () => {
       url: `${import.meta.env.VITE_REGISTER_REDIRECT_URL}`,
       handleCodeInApp: true,
     };
+    // console.log(config.url);
     await sendSignInLinkToEmail(auth, email, config);
     window.localStorage.setItem("emailForRegistration", email);
     setEmail("");
     toast.success(
-      `Email is sent to ${email}. Please click the link to complete registration.`
+      `Email is sent to ${email}. Please click the link to complete registration.`,
+      {
+        position: "top-center",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      }
     );
   };
   const isError = email === "";
   const registerForm = () => (
     <FormControl isInvalid={isError}>
-      <FormLabel
-        style={{
-          fontSize: "34px",
-          marginBottom: "20px",
-        }}
-      >
+      <Text fontSize={"5xl"} marginBottom={"20px"}>
         Register
-      </FormLabel>
+      </Text>
       <Input
         type='email'
         style={{
@@ -57,12 +63,12 @@ const Register = () => {
       )}
       <Button
         style={{
-          fontSize: "24px",
+          fontSize: "18px",
         }}
         type='submit'
         size='md'
         height='48px'
-        width='200px'
+        width='160px'
         border='2px'
         borderColor='green.500'
       >
