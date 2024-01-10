@@ -10,14 +10,14 @@ import { EmailIcon } from "@chakra-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import {
   userLoginFailure,
-  userLoginStart,
+  userLoadingStart,
   userLoginSuccess,
 } from "../../reducers/userReducer";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Login = () => {
-  const [email, setEmail] = useState("bmearaf0@gmail.com");
-  const [password, setPassword] = useState("123456");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -25,7 +25,7 @@ const Login = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      dispatch(userLoginStart());
+      dispatch(userLoadingStart());
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
@@ -54,6 +54,7 @@ const Login = () => {
       });
     } catch (error) {
       console.log(error.message);
+      toast.error(error.message);
       dispatch(userLoginFailure(error.message));
     }
   };
@@ -151,6 +152,11 @@ const Login = () => {
   return (
     <div className='mx-auto w-3/4 mt-10 md:mt-36 space-y-5'>
       <form onSubmit={handleSubmit}>{loginForm()}</form>
+      <Link to='/forgot/password'>
+        <button className='text-[#1877f2] hover:underline'>
+          Forgotten password?
+        </button>
+      </Link>
       <Button
         style={{
           fontSize: "18px",
@@ -158,8 +164,6 @@ const Login = () => {
         size='md'
         height='48px'
         width='100%'
-        border='2px'
-        borderColor='green.500'
         colorScheme='teal'
         leftIcon={<FaGoogle />}
         onClick={handleGoogleLogin}

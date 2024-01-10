@@ -31,6 +31,7 @@ const Main = () => {
   return (
     <div>
       <Nav />
+
       <Outlet />
     </div>
   );

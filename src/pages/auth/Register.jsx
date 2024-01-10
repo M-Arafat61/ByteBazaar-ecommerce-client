@@ -25,17 +25,7 @@ const Register = () => {
     window.localStorage.setItem("emailForRegistration", email);
     setEmail("");
     toast.success(
-      `Email is sent to ${email}. Please click the link to complete registration.`,
-      {
-        position: "top-center",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      }
+      `Email is sent to ${email}. Please click the link to complete registration.`
     );
   };
   const isError = email === "";
