@@ -30,9 +30,9 @@ const router = createBrowserRouter([
       {
         path: "login",
         element: (
-          <AuthGuard>
-            <Login />
-          </AuthGuard>
+          // <AuthGuard>
+          <Login />
+          // </AuthGuard>
         ),
       },
       {

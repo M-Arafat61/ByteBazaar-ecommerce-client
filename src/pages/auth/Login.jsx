@@ -14,6 +14,7 @@ import {
   userLoginSuccess,
 } from "../../reducers/userReducer";
 import { Link, useNavigate } from "react-router-dom";
+import { createOrUpdateUser } from "../../api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -34,14 +35,24 @@ const Login = () => {
       const user = userCredential.user;
       const idTokenResult = await user.getIdTokenResult();
       // console.log(idTokenResult.token);
-      dispatch(
-        userLoginSuccess({
-          email: user.email,
-          token: idTokenResult.token,
+      const idToken = idTokenResult.token;
+      createOrUpdateUser(idToken)
+        .then(res => {
+          console.log(res);
+          // updating redux store with user info
+          dispatch(
+            userLoginSuccess({
+              name: res.data.name,
+              email: res.data.email,
+              userId: res.data._id,
+              role: res.data.role,
+              token: idTokenResult.token,
+            })
+          );
         })
-      );
-      //
-      navigate("/");
+        .catch(error => console.log(error));
+
+      // navigate("/");
       toast.success("Login successful", {
         position: "top-right",
         autoClose: 5000,
@@ -63,14 +74,24 @@ const Login = () => {
       .then(async result => {
         const user = result.user;
         const idTokenResult = await user.getIdTokenResult();
+        const idToken = idTokenResult.token;
         // console.log(user);
-        // console.log(idTokenResult);
-        dispatch(
-          userLoginSuccess({
-            email: user.email,
-            token: idTokenResult.token,
+        // console.log(idToken);
+        createOrUpdateUser(idToken)
+          .then(res => {
+            console.log(res);
+            // updating redux store with user info
+            dispatch(
+              userLoginSuccess({
+                name: res.data.name,
+                email: res.data.email,
+                userId: res.data._id,
+                role: res.data.role,
+                token: idTokenResult.token,
+              })
+            );
           })
-        );
+          .catch(error => console.log(error));
         navigate("/");
         toast.success("Login successful", {
           position: "top-right",

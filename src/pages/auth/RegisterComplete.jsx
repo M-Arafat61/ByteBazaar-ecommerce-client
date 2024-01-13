@@ -5,11 +5,15 @@ import { signInWithEmailLink, updatePassword } from "firebase/auth";
 import { auth } from "../../firebase.config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { createOrUpdateUser } from "../../api";
+import { useDispatch } from "react-redux";
+import { userLoginSuccess } from "../../reducers/userReducer";
 
 const RegisterComplete = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     setEmail(window.localStorage.getItem("emailForRegistration"));
@@ -31,39 +35,35 @@ const RegisterComplete = () => {
       //   console.log(result);
 
       if (result.user.emailVerified) {
-        // remove user from ls
         window.localStorage.removeItem("emailForRegistration");
         // get user token
         let user = auth.currentUser;
         await updatePassword(user, password);
         const idTokenResult = await user.getIdTokenResult();
-        console.log("User", user, idTokenResult);
+        const idToken = idTokenResult.token;
+        // console.log("User", user, idTokenResult);
         // redux store
-
+        createOrUpdateUser(idToken)
+          .then(res => {
+            console.log(res);
+            // updating redux store with user info
+            dispatch(
+              userLoginSuccess({
+                name: res.data.name,
+                email: res.data.email,
+                userId: res.data._id,
+                role: res.data.role,
+                token: idTokenResult.token,
+              })
+            );
+          })
+          .catch(error => console.log(error));
         // redirect
         navigate("/");
-        toast.success("Registration successful.", {
-          position: "top-right",
-          autoClose: 5000,
-          hideProgressBar: false,
-          closeOnClick: true,
-          pauseOnHover: true,
-          draggable: true,
-          progress: undefined,
-          theme: "colored",
-        });
+        toast.success("Registration successful.");
       }
     } catch (error) {
-      toast.error(error.message, {
-        position: "top-right",
-        autoClose: 5000,
-        hideProgressBar: false,
-        closeOnClick: true,
-        pauseOnHover: true,
-        draggable: true,
-        progress: undefined,
-        theme: "colored",
-      });
+      toast.error(error.message);
     }
   };
 
@@ -91,6 +91,7 @@ const RegisterComplete = () => {
         className='my-5'
         type='password'
         id='password-input'
+        placeholder='Password'
         style={{
           fontSize: "19px",
         }}
