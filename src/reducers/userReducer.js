@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
   userinfo: {
     name: "",
+    username: "",
     email: "",
     userId: "",
     role: "",
@@ -24,9 +25,10 @@ export const userSlice = createSlice({
       state.userinfo.loading = false;
     },
     userLoginSuccess: (state, action) => {
-      const { name, email, userId, role, token } = action.payload;
+      const { name, username, email, userId, role, token } = action.payload;
       state.userinfo = {
         name,
+        username,
         email,
         userId,
         role,
@@ -42,6 +44,7 @@ export const userSlice = createSlice({
     userLogout: state => {
       state.userinfo = {
         name: "",
+        username: "",
         email: "",
         userId: "",
         role: "",

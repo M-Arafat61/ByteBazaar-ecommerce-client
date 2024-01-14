@@ -28,7 +28,7 @@ const ForgotPassword = () => {
       });
   };
 
-  const { loading } = useSelector(state => state.userinfo);
+  const { loading } = useSelector(state => state.user.userinfo);
   //   console.log(loading);
   return (
     <div className='flex flex-col space-y-5 mt-10 md:mt-36 shadow-2xl w-1/2 mx-auto p-5'>

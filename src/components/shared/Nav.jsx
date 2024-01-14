@@ -1,5 +1,5 @@
 import { Menu, MenuButton, MenuList, MenuItem, Text } from "@chakra-ui/react";
-import { NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import { Icon } from "@chakra-ui/react";
 import {
   RiShoppingCartFill,
@@ -27,7 +27,7 @@ const Nav = () => {
         console.error("Logout error:", error);
       });
   };
-  const { email } = useSelector(state => state.userinfo);
+  const { email } = useSelector(state => state.user.userinfo);
   // console.log(email);
 
   return (
@@ -105,16 +105,18 @@ const Nav = () => {
         </div>
       ) : (
         <div className='flex w-full justify-end'>
-          <Menu isLazy autoSelect:true>
+          <Menu>
             <MenuButton className='bg-neutral-300/85 px-2 py-1 rounded-xl font-normal text-base hover:border-emerald-400 hover:border-b-[4px] hover:text-emerald-400 overflow-hidden'>
               {email?.split("@")[0]}
               <Icon as={GiClick} />
             </MenuButton>
             <MenuList fontWeight='semibold' letterSpacing='wide' fontSize='xs'>
-              <MenuItem className='flex items-center gap-x-1'>
-                <Icon as={MdOutlineSpaceDashboard} />
-                Dashboard
-              </MenuItem>
+              <Link to='/user/history'>
+                <MenuItem className='flex items-center gap-x-1'>
+                  <Icon as={MdOutlineSpaceDashboard} />
+                  Dashboard
+                </MenuItem>
+              </Link>
               <MenuItem
                 onClick={handleLogout}
                 className='flex items-center gap-x-1'

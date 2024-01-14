@@ -5,12 +5,11 @@ import { useNavigate } from "react-router-dom";
 
 const PrivateRoute = ({ children }) => {
   const navigate = useNavigate();
-
-  const { email, token } = useSelector(state => state.userinfo);
-  //   console.log(email, token);
+  const { email, token } = useSelector(state => state.user.userinfo);
 
   useEffect(() => {
     if (!email || !token) {
+      console.log("PrivateRoute - Redirecting to /login");
       navigate("/login");
     }
   }, [email, token, navigate]);

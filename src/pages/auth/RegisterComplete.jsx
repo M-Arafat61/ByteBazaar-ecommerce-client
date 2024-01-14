@@ -50,6 +50,7 @@ const RegisterComplete = () => {
             dispatch(
               userLoginSuccess({
                 name: res.data.name,
+                username: res.data.username,
                 email: res.data.email,
                 userId: res.data._id,
                 role: res.data.role,
@@ -58,7 +59,6 @@ const RegisterComplete = () => {
             );
           })
           .catch(error => console.log(error));
-        // redirect
         navigate("/");
         toast.success("Registration successful.");
       }
@@ -84,7 +84,7 @@ const RegisterComplete = () => {
           fontSize: "19px",
         }}
         height='52px'
-        value={email}
+        value={email ? email : ""}
         disabled
       />
       <Input

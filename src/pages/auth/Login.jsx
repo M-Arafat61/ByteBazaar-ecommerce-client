@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { FormControl, Text, Input, Button, Box } from "@chakra-ui/react";
-
 import { FaGoogle } from "react-icons/fa";
 import { ImSpinner6 } from "react-icons/im";
 import { auth, googleProvider } from "../../firebase.config";
@@ -23,6 +22,14 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const roleBasedUser = res => {
+    if (res.data.role === "admin") {
+      navigate("/admin/dashboard");
+    } else {
+      navigate("/user/history");
+    }
+  };
+
   const handleSubmit = async e => {
     e.preventDefault();
     try {
@@ -43,16 +50,18 @@ const Login = () => {
           dispatch(
             userLoginSuccess({
               name: res.data.name,
+              username: res.data.username,
               email: res.data.email,
               userId: res.data._id,
               role: res.data.role,
               token: idTokenResult.token,
             })
           );
+          roleBasedUser(res);
         })
         .catch(error => console.log(error));
 
-      // navigate("/");
+      navigate("/");
       toast.success("Login successful", {
         position: "top-right",
         autoClose: 5000,
@@ -84,12 +93,14 @@ const Login = () => {
             dispatch(
               userLoginSuccess({
                 name: res.data.name,
+                username: res.data.username,
                 email: res.data.email,
                 userId: res.data._id,
                 role: res.data.role,
                 token: idTokenResult.token,
               })
             );
+            roleBasedUser(res);
           })
           .catch(error => console.log(error));
         navigate("/");
@@ -109,7 +120,7 @@ const Login = () => {
         console.log(error);
       });
   };
-  const { loading } = useSelector(state => state.userinfo);
+  const { loading } = useSelector(state => state.user.userinfo);
 
   const loginForm = () => (
     <FormControl className='space-y-5'>

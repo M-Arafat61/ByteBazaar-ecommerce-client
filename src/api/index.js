@@ -13,3 +13,15 @@ export const createOrUpdateUser = async authToken => {
     }
   );
 };
+export const dbCurrentUser = async authToken => {
+  return await axiosPublic.post(
+    `/current-user`,
+    {},
+    {
+      withCredentials: true,
+      headers: {
+        authToken,
+      },
+    }
+  );
+};

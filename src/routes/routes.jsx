@@ -8,6 +8,8 @@ import Cart from "../pages/cart/Cart";
 import Shop from "../pages/shop/Shop";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import AuthGuard from "./AuthGuard";
+import History from "../pages/user/History";
+import PrivateRoute from "./PrivateRoute";
 // import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -28,11 +30,19 @@ const router = createBrowserRouter([
         element: <Cart />,
       },
       {
+        path: "user/history",
+        element: (
+          <PrivateRoute>
+            <History />
+          </PrivateRoute>
+        ),
+      },
+      {
         path: "login",
         element: (
-          // <AuthGuard>
-          <Login />
-          // </AuthGuard>
+          <AuthGuard>
+            <Login />
+          </AuthGuard>
         ),
       },
       {
