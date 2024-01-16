@@ -6,18 +6,15 @@ import { auth, googleProvider } from "../../firebase.config";
 import { toast } from "react-toastify";
 import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 import { EmailIcon } from "@chakra-ui/icons";
-import { useDispatch, useSelector } from "react-redux";
-import {
-  userLoginFailure,
-  userLoadingStart,
-  userLoginSuccess,
-} from "../../reducers/userReducer";
+import { useDispatch } from "react-redux";
+import { userLoginFailure, userLoginSuccess } from "../../reducers/userReducer";
 import { Link, useNavigate } from "react-router-dom";
 import { createOrUpdateUser } from "../../api";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -33,7 +30,7 @@ const Login = () => {
   const handleSubmit = async e => {
     e.preventDefault();
     try {
-      dispatch(userLoadingStart());
+      // dispatch(userLoadingStart());
       const userCredential = await signInWithEmailAndPassword(
         auth,
         email,
@@ -46,6 +43,7 @@ const Login = () => {
       createOrUpdateUser(idToken)
         .then(res => {
           console.log(res);
+          setLoading(false);
           // updating redux store with user info
           dispatch(
             userLoginSuccess({
@@ -120,7 +118,6 @@ const Login = () => {
         console.log(error);
       });
   };
-  const { loading } = useSelector(state => state.user.userinfo);
 
   const loginForm = () => (
     <FormControl className='space-y-5'>
@@ -155,7 +152,7 @@ const Login = () => {
         {loading ? (
           <Button
             className='w-full'
-            leftIcon={<ImSpinner6 />}
+            leftIcon={<EmailIcon />}
             border='2px'
             borderColor='green.500'
             variant='solid'
@@ -167,7 +164,7 @@ const Login = () => {
         ) : (
           <Button
             className='w-full'
-            leftIcon={<EmailIcon />}
+            leftIcon={<ImSpinner6 />}
             border='2px'
             borderColor='green.500'
             variant='solid'

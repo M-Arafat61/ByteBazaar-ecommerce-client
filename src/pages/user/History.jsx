@@ -1,5 +1,9 @@
 const History = () => {
-  return <div>User History</div>;
+  return (
+    <div className='flex space-x-5'>
+      <div>User History pages</div>
+    </div>
+  );
 };
 
 export default History;

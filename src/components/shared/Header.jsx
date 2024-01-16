@@ -15,7 +15,7 @@ import { auth } from "../../firebase.config";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../../reducers/userReducer";
 
-const Nav = () => {
+const Header = () => {
   const dispatch = useDispatch();
 
   const handleLogout = () => {
@@ -132,4 +132,4 @@ const Nav = () => {
   );
 };
 
-export default Nav;
+export default Header;

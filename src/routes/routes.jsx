@@ -10,6 +10,9 @@ import ForgotPassword from "../pages/auth/ForgotPassword";
 import AuthGuard from "./AuthGuard";
 import History from "../pages/user/History";
 import PrivateRoute from "./PrivateRoute";
+import ResetPassword from "../pages/user/ResetPassword";
+import Wishlist from "../pages/user/Wishlist";
+import UserLayout from "../layouts/UserLayout";
 // import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -28,14 +31,6 @@ const router = createBrowserRouter([
       {
         path: "cart",
         element: <Cart />,
-      },
-      {
-        path: "user/history",
-        element: (
-          <PrivateRoute>
-            <History />
-          </PrivateRoute>
-        ),
       },
       {
         path: "login",
@@ -64,6 +59,28 @@ const router = createBrowserRouter([
       {
         path: "forgot/password",
         element: <ForgotPassword />,
+      },
+    ],
+  },
+  {
+    path: "user",
+    element: <UserLayout />,
+    children: [
+      {
+        path: "history",
+        element: (
+          <PrivateRoute>
+            <History />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "password",
+        element: <ResetPassword />,
+      },
+      {
+        path: "wishlist",
+        element: <Wishlist />,
       },
     ],
   },
