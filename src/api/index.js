@@ -25,3 +25,15 @@ export const dbCurrentUser = async authToken => {
     }
   );
 };
+export const dbCurrentAdmin = async authToken => {
+  return await axiosPublic.post(
+    `/current-admin`,
+    {},
+    {
+      withCredentials: true,
+      headers: {
+        authToken,
+      },
+    }
+  );
+};

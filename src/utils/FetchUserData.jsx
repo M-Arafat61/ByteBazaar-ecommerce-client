@@ -29,7 +29,7 @@ const FetchUserData = ({ children }) => {
           const res = await dbCurrentUser(idToken);
           dispatch(
             userLoginSuccess({
-              name: res.data.name,
+              name: res?.data?.name,
               username: res.data.username,
               email: res.data.email,
               userId: res.data._id,

@@ -9,10 +9,13 @@ import Shop from "../pages/shop/Shop";
 import ForgotPassword from "../pages/auth/ForgotPassword";
 import AuthGuard from "./AuthGuard";
 import History from "../pages/user/History";
-import PrivateRoute from "./PrivateRoute";
+import UserRoute from "./UserRoute";
 import ResetPassword from "../pages/user/ResetPassword";
 import Wishlist from "../pages/user/Wishlist";
 import UserLayout from "../layouts/UserLayout";
+import AdminLayout from "../layouts/AdminLayout";
+import AdminDashboard from "../pages/admin/AdminDashboard";
+import AdminRoute from "./AdminRoute";
 // import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -69,18 +72,40 @@ const router = createBrowserRouter([
       {
         path: "history",
         element: (
-          <PrivateRoute>
+          <UserRoute>
             <History />
-          </PrivateRoute>
+          </UserRoute>
         ),
       },
       {
         path: "password",
-        element: <ResetPassword />,
+        element: (
+          <UserRoute>
+            <ResetPassword />
+          </UserRoute>
+        ),
       },
       {
         path: "wishlist",
-        element: <Wishlist />,
+        element: (
+          <UserRoute>
+            <Wishlist />
+          </UserRoute>
+        ),
+      },
+    ],
+  },
+  {
+    path: "admin",
+    element: <AdminLayout />,
+    children: [
+      {
+        path: "dashboard",
+        element: (
+          <AdminRoute>
+            <AdminDashboard />
+          </AdminRoute>
+        ),
       },
     ],
   },

@@ -19,13 +19,15 @@ const Login = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const roleBasedUser = res => {
-    if (res.data.role === "admin") {
-      navigate("/admin/dashboard");
-    } else {
-      navigate("/user/history");
-    }
-  };
+  // const roleBasedUser = res => {
+  //   if (res.data.role === "admin") {
+  //     console.log('navigate("/admin/dashboard");');
+  //     navigate("/admin/dashboard");
+  //   } else {
+  //     console.log('navigate("/user/history");');
+  //     navigate("/user/history");
+  //   }
+  // };
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -47,7 +49,7 @@ const Login = () => {
           // updating redux store with user info
           dispatch(
             userLoginSuccess({
-              name: res.data.name,
+              name: res?.data?.name,
               username: res.data.username,
               email: res.data.email,
               userId: res.data._id,
@@ -55,11 +57,11 @@ const Login = () => {
               token: idTokenResult.token,
             })
           );
-          roleBasedUser(res);
+          // roleBasedUser(res);
         })
         .catch(error => console.log(error));
 
-      navigate("/");
+      // navigate("/");
       toast.success("Login successful", {
         position: "top-right",
         autoClose: 5000,
@@ -98,7 +100,7 @@ const Login = () => {
                 token: idTokenResult.token,
               })
             );
-            roleBasedUser(res);
+            // roleBasedUser(res);
           })
           .catch(error => console.log(error));
         navigate("/");

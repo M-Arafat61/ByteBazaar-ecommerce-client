@@ -17,7 +17,7 @@ import { userLogout } from "../../reducers/userReducer";
 
 const Header = () => {
   const dispatch = useDispatch();
-
+  const { email, role } = useSelector(state => state.user.userinfo);
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
@@ -27,8 +27,8 @@ const Header = () => {
         console.error("Logout error:", error);
       });
   };
-  const { email } = useSelector(state => state.user.userinfo);
-  // console.log(email);
+
+  console.log(email, role);
 
   return (
     <div className='flex gap-x-5 shadow-lg items-center py-4 text-[18px] font-medium'>
@@ -111,12 +111,21 @@ const Header = () => {
               <Icon as={GiClick} />
             </MenuButton>
             <MenuList fontWeight='semibold' letterSpacing='wide' fontSize='xs'>
-              <Link to='/user/history'>
-                <MenuItem className='flex items-center gap-x-1'>
-                  <Icon as={MdOutlineSpaceDashboard} />
-                  Dashboard
-                </MenuItem>
-              </Link>
+              {role === "admin" ? (
+                <Link to='/admin/dashboard'>
+                  <MenuItem className='flex items-center gap-x-1'>
+                    <Icon as={MdOutlineSpaceDashboard} />
+                    Dashboard
+                  </MenuItem>
+                </Link>
+              ) : (
+                <Link to='/user/history'>
+                  <MenuItem className='flex items-center gap-x-1'>
+                    <Icon as={MdOutlineSpaceDashboard} />
+                    Dashboard
+                  </MenuItem>
+                </Link>
+              )}
               <MenuItem
                 onClick={handleLogout}
                 className='flex items-center gap-x-1'
