@@ -7,9 +7,9 @@ const AdminLayout = () => {
   return (
     <FetchUserData>
       <Header />
-      <div className='grid grid-cols-5'>
+      <div className='grid grid-cols-5 py-10 space-x-5'>
         <AdminNav />
-        <div className='col-span-4'>
+        <div className='col-span-4 pt-1'>
           <Outlet />
         </div>
       </div>

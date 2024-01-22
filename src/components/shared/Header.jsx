@@ -28,7 +28,7 @@ const Header = () => {
       });
   };
 
-  console.log(email, role);
+  // console.log(email, role);
 
   return (
     <div className='flex gap-x-5 shadow-lg items-center py-4 text-[18px] font-medium'>
@@ -115,14 +115,14 @@ const Header = () => {
                 <Link to='/admin/dashboard'>
                   <MenuItem className='flex items-center gap-x-1'>
                     <Icon as={MdOutlineSpaceDashboard} />
-                    Dashboard
+                    Admin Dashboard
                   </MenuItem>
                 </Link>
               ) : (
                 <Link to='/user/history'>
                   <MenuItem className='flex items-center gap-x-1'>
                     <Icon as={MdOutlineSpaceDashboard} />
-                    Dashboard
+                    User Dashboard
                   </MenuItem>
                 </Link>
               )}

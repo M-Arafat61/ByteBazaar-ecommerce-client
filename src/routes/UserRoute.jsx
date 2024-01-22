@@ -23,7 +23,9 @@ const UserRoute = ({ children }) => {
 
   useEffect(() => {
     if (!loading && role !== "user") {
-      navigate("/");
+      if (role !== "admin") {
+        navigate("/");
+      }
     }
     if (!email && !token) {
       setLoading(false);

@@ -9,7 +9,7 @@ import { EmailIcon } from "@chakra-ui/icons";
 import { useDispatch } from "react-redux";
 import { userLoginFailure, userLoginSuccess } from "../../reducers/userReducer";
 import { Link, useNavigate } from "react-router-dom";
-import { createOrUpdateUser } from "../../api";
+import { createOrUpdateUser } from "../../api/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");

@@ -14,8 +14,10 @@ import ResetPassword from "../pages/user/ResetPassword";
 import Wishlist from "../pages/user/Wishlist";
 import UserLayout from "../layouts/UserLayout";
 import AdminLayout from "../layouts/AdminLayout";
-import AdminDashboard from "../pages/admin/AdminDashboard";
+
 import AdminRoute from "./AdminRoute";
+import AdminDashboard from "../pages/admin/AdminDashboard/AdminDashboard";
+import Category from "../pages/admin/Category/Category";
 // import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -104,6 +106,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <AdminDashboard />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "category",
+        element: (
+          <AdminRoute>
+            <Category />
           </AdminRoute>
         ),
       },

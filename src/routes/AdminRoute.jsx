@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { dbCurrentAdmin } from "../api";
+import { dbCurrentAdmin } from "../api/auth";
 import Loader from "../components/shared/Loader";
 import { userLoginSuccess } from "../reducers/userReducer";
 import { useNavigate } from "react-router-dom";
@@ -36,16 +36,16 @@ const AdminRoute = ({ children }) => {
       }
     };
     fetchData();
+    if (!email && !token) {
+      setLoading(false);
+    }
   }, [email, token, dispatch, navigate, role]);
 
   useEffect(() => {
     if (!loading && role !== "admin") {
       navigate("/");
     }
-    if (!email && !token) {
-      setLoading(false);
-    }
-  }, [email, token, loading, role, navigate]);
+  }, [loading, role, navigate]);
 
   if (loading) {
     return <HiOutlineDotsHorizontal size={25} />;

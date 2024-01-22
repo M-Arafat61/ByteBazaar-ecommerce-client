@@ -2,7 +2,7 @@ import { axiosPublic } from "../hooks/useAxiosPublic";
 
 export const createOrUpdateUser = async authToken => {
   return await axiosPublic.post(
-    `/create-or-update-user`,
+    `/v1/create-or-update-user`,
     {},
     {
       withCredentials: true,
@@ -15,7 +15,7 @@ export const createOrUpdateUser = async authToken => {
 };
 export const dbCurrentUser = async authToken => {
   return await axiosPublic.post(
-    `/current-user`,
+    `/v1/current-user`,
     {},
     {
       withCredentials: true,
@@ -27,7 +27,7 @@ export const dbCurrentUser = async authToken => {
 };
 export const dbCurrentAdmin = async authToken => {
   return await axiosPublic.post(
-    `/current-admin`,
+    `/v1/current-admin`,
     {},
     {
       withCredentials: true,

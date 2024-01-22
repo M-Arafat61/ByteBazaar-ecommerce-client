@@ -1,23 +1,49 @@
 import { Box } from "@chakra-ui/react";
-import { Link as ReactRouterLink } from "react-router-dom";
-import { Link as ChakraLink } from "@chakra-ui/react";
+import { NavLink } from "react-router-dom";
 
 const UserNav = () => {
   return (
     <Box
-      className='flex flex-col space-y-2 pl-2 md:pl-5'
+      className='flex flex-col space-y-2 pl-2'
       fontSize={"lg"}
       fontWeight={"semibold"}
     >
-      <ChakraLink as={ReactRouterLink} to='/user/history'>
+      <NavLink
+        to='/user/history'
+        className={({ isActive }) =>
+          `${
+            isActive
+              ? "text-emerald-400 underline px-3 py-1"
+              : "hover:bg-neutral-300/85  rounded-full px-3 py-1"
+          }`
+        }
+      >
         History
-      </ChakraLink>
-      <ChakraLink as={ReactRouterLink} to='/user/password'>
+      </NavLink>
+      <NavLink
+        to='/user/password'
+        className={({ isActive }) =>
+          `${
+            isActive
+              ? "text-emerald-400 underline px-3 py-1"
+              : "hover:bg-neutral-300/85  rounded-full px-3 py-1"
+          }`
+        }
+      >
         Password
-      </ChakraLink>
-      <ChakraLink as={ReactRouterLink} to='/user/wishlist'>
+      </NavLink>
+      <NavLink
+        to='/user/wishlist'
+        className={({ isActive }) =>
+          `${
+            isActive
+              ? "text-emerald-400 underline px-3 py-1"
+              : "hover:bg-neutral-300/85  rounded-full px-3 py-1"
+          }`
+        }
+      >
         Wishlist
-      </ChakraLink>
+      </NavLink>
     </Box>
   );
 };

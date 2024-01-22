@@ -7,7 +7,7 @@ const UserLayout = () => {
   return (
     <FetchUserData>
       <Header />
-      <div className='grid grid-cols-5'>
+      <div className='grid grid-cols-5 my-10 space-x-5'>
         <UserNav />
         <div className='col-span-4'>
           <Outlet />

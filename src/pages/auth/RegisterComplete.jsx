@@ -5,7 +5,7 @@ import { signInWithEmailLink, updatePassword } from "firebase/auth";
 import { auth } from "../../firebase.config";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
-import { createOrUpdateUser } from "../../api";
+import { createOrUpdateUser } from "../../api/auth";
 import { useDispatch } from "react-redux";
 import { userLoginSuccess } from "../../reducers/userReducer";
 

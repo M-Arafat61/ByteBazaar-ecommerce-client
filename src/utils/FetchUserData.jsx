@@ -3,7 +3,7 @@ import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../firebase.config";
-import { dbCurrentUser } from "../api";
+import { dbCurrentUser } from "../api/auth";
 import {
   userLoadingStart,
   userLoadingStop,
