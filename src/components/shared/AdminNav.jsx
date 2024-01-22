@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom";
 const AdminNav = () => {
   return (
     <Box
-      className='flex flex-col space-y-2 pl-2'
+      className='flex flex-wrap md:flex-col my-2 pl-2'
       fontSize={"lg"}
       fontWeight={"semibold"}
     >

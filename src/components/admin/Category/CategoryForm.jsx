@@ -13,7 +13,7 @@ const CategoryForm = ({ onSubmit }) => {
     <div>
       <form
         onSubmit={handleSubmit(data => onSubmit(data, reset))}
-        className='w-1/2 mx-auto space-y-3'
+        className='w-full md:w-1/2 mx-auto space-y-3'
       >
         <input
           type='text'
