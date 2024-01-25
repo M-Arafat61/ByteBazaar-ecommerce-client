@@ -11,10 +11,12 @@ import { useQuery } from "@tanstack/react-query";
 import { Link } from "react-router-dom";
 import { AiFillEdit } from "react-icons/ai";
 import { FaDeleteLeft } from "react-icons/fa6";
+import LocalSearch from "../../../utils/LocalSearch";
 
 const CreateCategory = () => {
   const { token } = useSelector(state => state.user.userinfo);
   const [loading, setLoading] = useState(false);
+  const [keyword, setKeyword] = useState("");
 
   const { data: categories = [], refetch } = useQuery({
     queryKey: ["categories"],
@@ -24,6 +26,9 @@ const CreateCategory = () => {
     },
   });
   //   console.log(categories);
+
+  const handleSearched = keyword => cat =>
+    cat.name.toLowerCase().includes(keyword);
 
   const onSubmit = async (data, resetForm) => {
     setLoading(true);
@@ -84,6 +89,11 @@ const CreateCategory = () => {
       toast.error("Error deleting category");
     }
   };
+  // console.log("Keyword:", keyword);
+  // console.log(
+  //   "Filtered Categories:",
+  //   categories.filter(handleSearched(keyword))
+  // );
 
   return (
     <div className='space-y-5'>
@@ -95,9 +105,11 @@ const CreateCategory = () => {
         )}
       </div>
       <CategoryForm onSubmit={onSubmit} />
+
+      <LocalSearch keyword={keyword} setKeyword={setKeyword} />
       <hr />
       <div className='w-full container mx-auto'>
-        {categories.map((cat, idx) => (
+        {categories.filter(handleSearched(keyword)).map((cat, idx) => (
           <div
             key={cat._id}
             className='bg-gray-200/100 mb-4 flex items-center justify-between'

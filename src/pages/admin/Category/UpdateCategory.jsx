@@ -54,7 +54,11 @@ const UpdateCategory = () => {
   return (
     <div className='space-y-5'>
       <div className='w-full md:w-1/2 mx-auto text-xl md:text-3xl font-bold'>
-        <p>Update Category</p>
+        {loading ? (
+          <p className='text-red-500'>Loading</p>
+        ) : (
+          <p>Update Category</p>
+        )}
       </div>
       <CategoryForm onSubmit={onSubmit} name={name} />
       <hr />
