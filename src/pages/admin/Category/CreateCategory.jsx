@@ -12,10 +12,9 @@ import { Link } from "react-router-dom";
 import { AiFillEdit } from "react-icons/ai";
 import { FaDeleteLeft } from "react-icons/fa6";
 
-const Category = () => {
+const CreateCategory = () => {
   const { token } = useSelector(state => state.user.userinfo);
   const [loading, setLoading] = useState(false);
-  // const [categories, setCategories] = useState([]);
 
   const { data: categories = [], refetch } = useQuery({
     queryKey: ["categories"],
@@ -89,9 +88,13 @@ const Category = () => {
   return (
     <div className='space-y-5'>
       <div className='w-full md:w-1/2 mx-auto text-xl md:text-3xl font-bold'>
-        {loading ? <p>Loading</p> : <p>Create Category</p>}
+        {loading ? (
+          <p className='text-red-500'>Loading</p>
+        ) : (
+          <p>Create Category</p>
+        )}
       </div>
-      <CategoryForm onSubmit={onSubmit} loading={loading} />
+      <CategoryForm onSubmit={onSubmit} />
       <hr />
       <div className='w-full container mx-auto'>
         {categories.map((cat, idx) => (
@@ -123,4 +126,4 @@ const Category = () => {
   );
 };
 
-export default Category;
+export default CreateCategory;

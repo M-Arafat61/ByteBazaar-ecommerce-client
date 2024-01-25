@@ -17,7 +17,8 @@ import AdminLayout from "../layouts/AdminLayout";
 
 import AdminRoute from "./AdminRoute";
 import AdminDashboard from "../pages/admin/AdminDashboard/AdminDashboard";
-import Category from "../pages/admin/Category/Category";
+import UpdateCategory from "../pages/admin/Category/UpdateCategory";
+import CreateCategory from "../pages/admin/Category/CreateCategory";
 // import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -113,7 +114,15 @@ const router = createBrowserRouter([
         path: "category",
         element: (
           <AdminRoute>
-            <Category />
+            <CreateCategory />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "category/:slug",
+        element: (
+          <AdminRoute>
+            <UpdateCategory />
           </AdminRoute>
         ),
       },
