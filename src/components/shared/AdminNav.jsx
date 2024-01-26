@@ -57,7 +57,7 @@ const AdminNav = () => {
         Category
       </NavLink>
       <NavLink
-        to='/admin/subcategory'
+        to='/admin/sub'
         className={({ isActive }) =>
           `${
             isActive

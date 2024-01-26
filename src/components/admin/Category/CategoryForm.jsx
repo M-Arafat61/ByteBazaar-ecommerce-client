@@ -16,7 +16,6 @@ const CategoryForm = ({ onSubmit, name }) => {
     >
       <input
         type='text'
-        placeholder='Category Name'
         className='w-full text-lg py-1 border-b-2 border-emerald-400 outline-none'
         {...register("category", {
           required: true,
