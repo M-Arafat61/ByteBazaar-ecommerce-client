@@ -18,7 +18,7 @@ const AdminNav = () => {
           }`
         }
       >
-        Admin Dashboard
+        Dashboard
       </NavLink>
       <NavLink
         to='/admin/product'

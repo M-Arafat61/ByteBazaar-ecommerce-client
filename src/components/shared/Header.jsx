@@ -6,6 +6,7 @@ import {
   RiLoginCircleLine,
   RiLogoutCircleLine,
 } from "react-icons/ri";
+
 import { CiShop } from "react-icons/ci";
 import { FaPerbyte, FaUserShield } from "react-icons/fa";
 import { GiClick } from "react-icons/gi";
@@ -14,6 +15,7 @@ import { signOut } from "firebase/auth";
 import { auth } from "../../firebase.config";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogout } from "../../reducers/userReducer";
+import DrawerComponent from "./Drawer";
 
 const Header = () => {
   const dispatch = useDispatch();
@@ -32,10 +34,12 @@ const Header = () => {
 
   return (
     <div className='flex gap-x-5 shadow-lg items-center py-4 text-[18px] font-medium'>
+      <div className='flex md:hidden'>
+        <DrawerComponent />
+      </div>
       <NavLink
-        to='/'
         className={({ isActive }) =>
-          `flex items-center gap-x-1 hover:bg-neutral-300/85 px-3 rounded-full py-1 ${
+          `md:flex hidden items-center gap-x-1 hover:bg-neutral-300/85 px-3 rounded-full py-1 ${
             isActive
               ? "text-emerald-400 border-b-[4px] border-emerald-500 shadow-sm"
               : ""
@@ -48,7 +52,7 @@ const Header = () => {
       <NavLink
         to='/shop'
         className={({ isActive }) =>
-          `flex items-center gap-x-1 hover:bg-neutral-300/85 px-3 rounded-full py-1 ${
+          `md:flex hidden  items-center gap-x-1 hover:bg-neutral-300/85 px-3 rounded-full py-1 ${
             isActive
               ? "text-emerald-400 border-b-[4px] border-emerald-500 shadow-sm"
               : ""
@@ -62,7 +66,7 @@ const Header = () => {
       <NavLink
         to='/cart'
         className={({ isActive }) =>
-          `flex items-center gap-x-1 hover:bg-neutral-300/85 px-3 rounded-full py-1 ${
+          `md:flex hidden  items-center gap-x-1 hover:bg-neutral-300/85 px-3 rounded-full py-1 ${
             isActive
               ? "text-emerald-400 border-b-[4px] border-emerald-500 shadow-sm"
               : ""
@@ -74,11 +78,11 @@ const Header = () => {
       </NavLink>
 
       {!email ? (
-        <div className='flex gap-x-5 justify-end w-full'>
+        <div className='flex gap-x-2 md:gap-x-5 justify-end w-full'>
           <NavLink
             to='/login'
             className={({ isActive }) =>
-              `flex items-center gap-x-1 hover:bg-neutral-300/85 px-3 rounded-full py-1 ${
+              `flex items-center gap-x-1 hover:bg-neutral-300/85 px-1 md:px-3  rounded-full py-1 ${
                 isActive
                   ? "text-emerald-400 border-b-[4px] border-emerald-500 shadow-sm"
                   : ""
@@ -92,7 +96,7 @@ const Header = () => {
           <NavLink
             to='/register'
             className={({ isActive }) =>
-              `flex items-center gap-x-1 hover:bg-neutral-300/85 px-3 rounded-full py-1 ${
+              `flex items-center gap-x-1 hover:bg-neutral-300/85 px-1 md:px-3 rounded-full py-1 ${
                 isActive
                   ? "text-emerald-400 border-b-[4px] border-emerald-500 shadow-sm"
                   : ""

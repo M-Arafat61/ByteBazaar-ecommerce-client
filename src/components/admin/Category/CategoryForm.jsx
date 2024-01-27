@@ -21,6 +21,7 @@ const CategoryForm = ({ onSubmit, name }) => {
           required: true,
         })}
         defaultValue={name || ""}
+        autoFocus
       />
       {errors.category && (
         <span className='text-red-500 block'>Category is required!</span>

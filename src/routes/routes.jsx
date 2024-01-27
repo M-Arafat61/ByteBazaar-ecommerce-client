@@ -20,6 +20,7 @@ import AdminDashboard from "../pages/admin/AdminDashboard/AdminDashboard";
 import UpdateCategory from "../pages/admin/Category/UpdateCategory";
 import CreateCategory from "../pages/admin/Category/CreateCategory";
 import CreateSub from "../pages/admin/Sub/CreateSub";
+import UpdateSubCategory from "../pages/admin/Sub/UpdateSubCategory";
 // import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -132,6 +133,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <UpdateCategory />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "sub/:slug",
+        element: (
+          <AdminRoute>
+            <UpdateSubCategory />
           </AdminRoute>
         ),
       },

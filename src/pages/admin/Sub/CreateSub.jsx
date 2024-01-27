@@ -9,6 +9,7 @@ import { createSubData, getAllSubsData, removeSubData } from "../../../api/sub";
 import { Link } from "react-router-dom";
 import { AiFillEdit } from "react-icons/ai";
 import { FaDeleteLeft } from "react-icons/fa6";
+import Loader from "../../../components/shared/Loader";
 
 const CreateSub = () => {
   const { token } = useSelector(state => state.user.userinfo);
@@ -38,7 +39,7 @@ const CreateSub = () => {
   const onSubmit = async (data, resetForm) => {
     setLoading(true);
     const name = data.category;
-    // console.log(name);
+    console.log(data);
     try {
       const response = await createSubData({ name, parent: category }, token);
       if (response.status == "200") {
@@ -59,7 +60,7 @@ const CreateSub = () => {
     // console.log(slug);
     toast.info(
       <>
-        <p>{`Are you sure to delete category ${slug} ?`}</p>
+        <p>{`Are you sure to delete sub-category ${slug} ?`}</p>
         <div className='flex gap-x-5 mt-5'>
           <button
             className='px-2 py-1 bg-red-500 text-white font-semibold'
@@ -86,12 +87,12 @@ const CreateSub = () => {
         setLoading(false);
         toast.dismiss();
         refetch();
-        toast.success(`Category ${slug} deleted successfully`);
+        toast.success(`sub-category ${slug} deleted successfully`);
       }
     } catch (error) {
       console.error(error);
       toast.dismiss();
-      toast.error("Error deleting category");
+      toast.error("Error deleting sub-category");
     }
   };
   // console.log("Keyword:", keyword);
@@ -102,13 +103,13 @@ const CreateSub = () => {
   //   console.log("parent:", category);
   return (
     <div className='space-y-5'>
-      <div className='w-full md:w-1/2 mx-auto text-xl md:text-3xl font-bold'>
-        <p>Create sub-category</p>
+      <div className='w-full md:w-1/2 mx-auto text-2xl md:text-3xl font-bold'>
+        {loading ? <Loader /> : <p>Create sub-category</p>}
       </div>
       <div className='w-full md:w-1/2 mx-auto space-x-2'>
         <label className='text-xl'>Parent category:</label>
         <select
-          className='border border-emerald-500 outline-none'
+          className='border border-emerald-500 outline-none py-1 hover:shadow-lg hover:font-semibold hover:rounded-r-2xl'
           name='category'
           onChange={e => setCategory(e.target.value)}
           required
