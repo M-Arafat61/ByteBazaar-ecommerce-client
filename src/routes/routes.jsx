@@ -21,6 +21,7 @@ import UpdateCategory from "../pages/admin/Category/UpdateCategory";
 import CreateCategory from "../pages/admin/Category/CreateCategory";
 import CreateSub from "../pages/admin/Sub/CreateSub";
 import UpdateSubCategory from "../pages/admin/Sub/UpdateSubCategory";
+import CreateProduct from "../pages/admin/Product/CreateProduct";
 // import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -141,6 +142,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <UpdateSubCategory />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "product",
+        element: (
+          <AdminRoute>
+            <CreateProduct />
           </AdminRoute>
         ),
       },

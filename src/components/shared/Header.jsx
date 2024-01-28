@@ -38,8 +38,9 @@ const Header = () => {
         <DrawerComponent />
       </div>
       <NavLink
+        to='/'
         className={({ isActive }) =>
-          `md:flex hidden items-center gap-x-1 hover:bg-neutral-300/85 px-3 rounded-full py-1 ${
+          `md:flex hidden  items-center gap-x-1 hover:bg-neutral-300/85 px-3 rounded-full py-1 ${
             isActive
               ? "text-emerald-400 border-b-[4px] border-emerald-500 shadow-sm"
               : ""

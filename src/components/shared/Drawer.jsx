@@ -11,7 +11,7 @@ import {
 import React from "react";
 import { IoMenu } from "react-icons/io5";
 import { Link } from "react-router-dom";
-import logo from "../../../public/ecom-logo.png";
+import logo from "../../assets/ecom-logo.png";
 import { CiShop } from "react-icons/ci";
 import { RiShoppingCartFill } from "react-icons/ri";
 import { FaPerbyte } from "react-icons/fa";
