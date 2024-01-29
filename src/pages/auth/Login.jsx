@@ -45,19 +45,19 @@ const Login = () => {
       createOrUpdateUser(idToken)
         .then(res => {
           console.log(res);
-          setLoading(false);
-          // updating redux store with user info
-          dispatch(
-            userLoginSuccess({
-              name: res?.data?.name,
-              username: res.data.username,
-              email: res.data.email,
-              userId: res.data._id,
-              role: res.data.role,
-              token: idTokenResult.token,
-            })
-          );
-          // roleBasedUser(res);
+          if (res.status === 200) {
+            setLoading(false);
+            dispatch(
+              userLoginSuccess({
+                name: res?.data?.name,
+                username: res.data.username,
+                email: res.data.email,
+                userId: res.data._id,
+                role: res.data.role,
+                token: idTokenResult.token,
+              })
+            );
+          }
         })
         .catch(error => console.log(error));
 

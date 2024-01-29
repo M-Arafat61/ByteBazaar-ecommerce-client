@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged, onIdTokenChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../firebase.config";
@@ -8,20 +8,33 @@ import {
   userLoadingStart,
   userLoadingStop,
   userLoginSuccess,
+  userLogout,
 } from "../reducers/userReducer";
 import { Icon } from "@chakra-ui/react";
 import { ImSpinner9 } from "react-icons/im";
+import { useNavigate } from "react-router-dom";
 
 const FetchUserData = ({ children }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { loading } = useSelector(state => state.user.userinfo);
   // console.log(loading);
 
   useEffect(() => {
     dispatch(userLoadingStart());
-    const unsubscribe = onAuthStateChanged(auth, async currentUser => {
+    const unsubscribeAuthState = onAuthStateChanged(auth, async currentUser => {
       if (currentUser) {
+        const unsubscribeTokenChanged = onIdTokenChanged(
+          auth,
+          async userWithToken => {
+            if (!userWithToken) {
+              dispatch(userLogout());
+              console.log("User logged out");
+              navigate("/login");
+            }
+          }
+        );
         const idTokenResult = await currentUser.getIdTokenResult();
         const idToken = idTokenResult.token;
 
@@ -40,13 +53,15 @@ const FetchUserData = ({ children }) => {
         } catch (error) {
           console.log(error);
         }
+
+        return () => unsubscribeTokenChanged();
       } else {
         dispatch(userLoadingStop());
       }
     });
 
-    return () => unsubscribe();
-  }, [dispatch]);
+    return () => unsubscribeAuthState();
+  }, [dispatch, navigate]);
   if (loading) {
     return (
       <div className='flex justify-center items-center min-h-screen'>

@@ -39,7 +39,7 @@ const CreateSub = () => {
   const onSubmit = async (data, resetForm) => {
     setLoading(true);
     const name = data.category;
-    console.log(data);
+    // console.log(data);
     try {
       const response = await createSubData({ name, parent: category }, token);
       if (response.status == "200") {

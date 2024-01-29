@@ -11,7 +11,6 @@ import { getAllCategoriesData } from "../../../api/category";
 
 const UpdateSubCategory = () => {
   const [loading, setLoading] = React.useState(false);
-  const [category, setCategory] = React.useState("");
   const [name, setName] = React.useState("");
   const [parent, setParent] = React.useState("");
   const { slug } = useParams();
@@ -41,12 +40,12 @@ const UpdateSubCategory = () => {
     }
   }, [isLoading, sub?.name, sub?.parent]);
 
-  console.log(categories);
+  // console.log(parent);
 
   const onSubmit = async (data, resetForm) => {
     setLoading(true);
     const name = data.category;
-    const parent = category;
+
     try {
       const response = await updateSubData(slug, { name, parent }, token);
       if (response.status == "200") {
@@ -73,8 +72,7 @@ const UpdateSubCategory = () => {
         <select
           className='w-1/2 border border-emerald-500 outline-none py-1 hover:shadow-lg hover:font-semibold hover:rounded-r-2xl'
           name='category'
-          onChange={e => setCategory(e.target.value)}
-          required
+          onChange={e => setParent(e.target.value)}
         >
           <option value=''>Select category</option>
           {categories.length > 0 &&
