@@ -1,13 +1,14 @@
 /* eslint-disable react/prop-types */
 import React, { useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import CategoryForm from "../../../components/admin/Category/CategoryForm";
+
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
 import { useQuery } from "@tanstack/react-query";
 import { getSubData, updateSubData } from "../../../api/sub";
 import Loader from "../../../components/shared/Loader";
 import { getAllCategoriesData } from "../../../api/category";
+import CategoryForm from "../../../components/admin/Forms/CategoryForm";
 
 const UpdateSubCategory = () => {
   const [loading, setLoading] = React.useState(false);

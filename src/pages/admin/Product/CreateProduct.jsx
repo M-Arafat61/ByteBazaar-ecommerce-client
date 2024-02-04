@@ -2,18 +2,48 @@ import React from "react";
 import { toast } from "react-toastify";
 import { createProductData } from "../../../api/product";
 import { useSelector } from "react-redux";
-import ProductForm from "../../../components/admin/Product/ProductForm";
+import ProductForm from "../../../components/admin/Forms/ProductForm";
 import { useQuery } from "@tanstack/react-query";
 import {
   getAllCategoriesData,
   getCategorySubsData,
 } from "../../../api/category";
+import Loader from "../../../components/shared/Loader";
+import FileUpload from "../../../components/admin/Forms/FileUpload";
+import { Image } from "@chakra-ui/react";
+import { CiCircleRemove } from "react-icons/ci";
+
+const colors = [
+  "Silver",
+  "Space Gray",
+  "Black",
+  "White",
+  "Blue",
+  "Red",
+  "Gold",
+  "Rose Gold",
+  "Carbon Black",
+  "Gunmetal",
+];
+const brands = [
+  "Xiaomi",
+  "Acer",
+  "Dell",
+  "MSI",
+  "Microsoft",
+  "Razer",
+  "Samsung",
+  "Apple",
+  "HP",
+  "Lenovo",
+];
 
 const CreateProduct = () => {
   const [loading, setLoading] = React.useState(false);
   const [categories, setCategories] = React.useState([]);
   const [subs, setSubs] = React.useState([]);
   const [selectedSubs, setSelectedSubs] = React.useState([]);
+  const [uploadedImages, setUploadedImages] = React.useState([]);
 
   const { token } = useSelector(state => state.user.userinfo);
 
@@ -31,33 +61,51 @@ const CreateProduct = () => {
     }
   }, [isLoading, data]);
 
+  // const handleFileUploadState = images => {
+  //   setUploadedImages(images);
+  // };
+  const handleImageRemove = () => {
+    //
+  };
+
   const onSubmit = async (data, resetForm) => {
     setLoading(true);
     console.log(data);
-    try {
-      const response = await createProductData(data, token);
-      console.log(response.data);
-      if (response.status == "200") {
-        setLoading(false);
-        toast.success(`Product creation successful.`);
-        // resetForm();
-      }
-    } catch (error) {
-      setLoading(false);
-      toast.error(error.response.data.error);
-    }
+    // try {
+    //   const response = await createProductData(data, token);
+    //   console.log(response.data);
+    //   if (response.status == "200") {
+    //     setLoading(false);
+    //     toast.success(`Product creation successful.`);
+    //     // resetForm();
+    //   }
+    // } catch (error) {
+    //   setLoading(false);
+    //   resetForm();
+    //   toast.error(error.response.data.error);
+    // }
   };
 
   const handleCategory = async e => {
+    setLoading(true);
     e.preventDefault();
+    setSelectedSubs([]);
     const id = e?.target?.value;
     try {
+      setSubs([]);
       const res = await getCategorySubsData(id);
+      setLoading(false);
       setSubs(res?.data);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
+
+  const options = subs?.map(sub => ({
+    value: sub?._id,
+    label: sub?.name,
+  }));
 
   const handleSubSelectChange = selectedOptions => {
     setSelectedSubs(selectedOptions.map(option => option.value));
@@ -68,19 +116,45 @@ const CreateProduct = () => {
     <div className='space-y-5'>
       <div className='w-full md:w-1/2 mx-auto text-xl md:text-3xl font-bold'>
         {loading ? (
-          <p className='text-red-500'>Loading</p>
+          <div className='text-red-500'>
+            <Loader />
+          </div>
         ) : (
           <p>Create Product</p>
         )}
       </div>
       <div className='border px-10 py-5 rounded-2xl'>
+        <div className='flex items-center gap-x-10'>
+          <FileUpload setUploadedImages={setUploadedImages} />
+          {uploadedImages.length > 0 &&
+            uploadedImages.map(image => (
+              <div className='relative' key={image.public_id}>
+                <Image
+                  borderRadius='full'
+                  boxSize='170px'
+                  src={image.url}
+                  alt='Dan Abramov'
+                />
+                <CiCircleRemove
+                  size={38}
+                  className='absolute right-0 top-0 text-red-600 cursor-pointer'
+                  onClick={() => handleImageRemove(image.public_id)}
+                />
+              </div>
+            ))}
+        </div>
+
         <ProductForm
+          uploadedImages={uploadedImages}
+          colors={colors}
+          brands={brands}
           onSubmit={onSubmit}
           categories={categories}
           handleCategory={handleCategory}
           subs={subs}
           selectedSubs={selectedSubs}
           handleSubSelectChange={handleSubSelectChange}
+          options={options}
         />
       </div>
     </div>

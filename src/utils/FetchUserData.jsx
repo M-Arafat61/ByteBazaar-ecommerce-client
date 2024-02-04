@@ -1,5 +1,5 @@
 /* eslint-disable react/prop-types */
-import { onAuthStateChanged, onIdTokenChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../firebase.config";
@@ -8,7 +8,6 @@ import {
   userLoadingStart,
   userLoadingStop,
   userLoginSuccess,
-  userLogout,
 } from "../reducers/userReducer";
 import { Icon } from "@chakra-ui/react";
 import { ImSpinner9 } from "react-icons/im";
@@ -25,16 +24,6 @@ const FetchUserData = ({ children }) => {
     dispatch(userLoadingStart());
     const unsubscribeAuthState = onAuthStateChanged(auth, async currentUser => {
       if (currentUser) {
-        const unsubscribeTokenChanged = onIdTokenChanged(
-          auth,
-          async userWithToken => {
-            if (!userWithToken) {
-              dispatch(userLogout());
-              console.log("User logged out");
-              navigate("/login");
-            }
-          }
-        );
         const idTokenResult = await currentUser.getIdTokenResult();
         const idToken = idTokenResult.token;
 
@@ -53,8 +42,6 @@ const FetchUserData = ({ children }) => {
         } catch (error) {
           console.log(error);
         }
-
-        return () => unsubscribeTokenChanged();
       } else {
         dispatch(userLoadingStop());
       }

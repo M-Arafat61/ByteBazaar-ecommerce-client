@@ -1,5 +1,5 @@
 import { useState } from "react";
-import CategoryForm from "../../../components/admin/Category/CategoryForm";
+
 import { getAllCategoriesData } from "../../../api/category";
 import { useSelector } from "react-redux";
 import { toast } from "react-toastify";
@@ -10,6 +10,7 @@ import { Link } from "react-router-dom";
 import { AiFillEdit } from "react-icons/ai";
 import { FaDeleteLeft } from "react-icons/fa6";
 import Loader from "../../../components/shared/Loader";
+import CategoryForm from "../../../components/admin/Forms/CategoryForm";
 
 const CreateSub = () => {
   const { token } = useSelector(state => state.user.userinfo);

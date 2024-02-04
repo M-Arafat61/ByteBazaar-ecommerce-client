@@ -1,5 +1,4 @@
 import { useState } from "react";
-import CategoryForm from "../../../components/admin/Category/CategoryForm";
 import {
   createCategoryData,
   getAllCategoriesData,
@@ -12,6 +11,7 @@ import { Link } from "react-router-dom";
 import { AiFillEdit } from "react-icons/ai";
 import { FaDeleteLeft } from "react-icons/fa6";
 import LocalSearch from "../../../utils/LocalSearch";
+import CategoryForm from "../../../components/admin/Forms/CategoryForm";
 
 const CreateCategory = () => {
   const { token } = useSelector(state => state.user.userinfo);
