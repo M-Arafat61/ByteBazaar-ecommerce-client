@@ -8,7 +8,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getSubData, updateSubData } from "../../../api/sub";
 import Loader from "../../../components/shared/Loader";
 import { getAllCategoriesData } from "../../../api/category";
-import CategoryForm from "../../../components/admin/Forms/CategoryForm";
+import SubCategoryForm from "../../../components/admin/Forms/SubCategoryForm";
 
 const UpdateSubCategory = () => {
   const [loading, setLoading] = React.useState(false);
@@ -45,7 +45,7 @@ const UpdateSubCategory = () => {
 
   const onSubmit = async (data, resetForm) => {
     setLoading(true);
-    const name = data.category;
+    const name = data.sub;
 
     try {
       const response = await updateSubData(slug, { name, parent }, token);
@@ -88,7 +88,7 @@ const UpdateSubCategory = () => {
             ))}
         </select>
       </div>
-      <CategoryForm onSubmit={onSubmit} name={name} />
+      <SubCategoryForm onSubmit={onSubmit} name={name} parent={parent} />
       <hr />
     </div>
   );

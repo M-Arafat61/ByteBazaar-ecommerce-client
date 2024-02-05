@@ -10,7 +10,7 @@ import {
 } from "../../../api/category";
 import Loader from "../../../components/shared/Loader";
 import FileUpload from "../../../components/admin/Forms/FileUpload";
-import { Image, Stack } from "@chakra-ui/react";
+import { Image } from "@chakra-ui/react";
 import { CiCircleRemove } from "react-icons/ci";
 import { axiosPublic } from "../../../hooks/useAxiosPublic";
 
@@ -26,18 +26,7 @@ const colors = [
   "Carbon Black",
   "Gunmetal",
 ];
-const brands = [
-  "Xiaomi",
-  "Acer",
-  "Dell",
-  "MSI",
-  "Microsoft",
-  "Razer",
-  "Samsung",
-  "Apple",
-  "HP",
-  "Lenovo",
-];
+const brands = ["Dell", "MSI", "Microsoft", "Razer", "Samsung", "Apple"];
 
 const CreateProduct = () => {
   const [loading, setLoading] = React.useState(false);
@@ -95,19 +84,19 @@ const CreateProduct = () => {
   const onSubmit = async (data, resetForm) => {
     setLoading(true);
     console.log(data);
-    // try {
-    //   const response = await createProductData(data, token);
-    //   console.log(response.data);
-    //   if (response.status == "200") {
-    //     setLoading(false);
-    //     toast.success(`Product creation successful.`);
-    //     // resetForm();
-    //   }
-    // } catch (error) {
-    //   setLoading(false);
-    //   resetForm();
-    //   toast.error(error.response.data.error);
-    // }
+    try {
+      const response = await createProductData(data, token);
+      console.log(response.data);
+      if (response.status == "200") {
+        setLoading(false);
+        toast.success(`Product creation successful.`);
+        // resetForm();
+      }
+    } catch (error) {
+      setLoading(false);
+      resetForm();
+      toast.error(error.response.data.error);
+    }
   };
 
   const handleCategory = async e => {

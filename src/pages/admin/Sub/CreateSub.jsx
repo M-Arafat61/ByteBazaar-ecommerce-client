@@ -10,7 +10,7 @@ import { Link } from "react-router-dom";
 import { AiFillEdit } from "react-icons/ai";
 import { FaDeleteLeft } from "react-icons/fa6";
 import Loader from "../../../components/shared/Loader";
-import CategoryForm from "../../../components/admin/Forms/CategoryForm";
+import SubCategoryForm from "../../../components/admin/Forms/SubCategoryForm";
 
 const CreateSub = () => {
   const { token } = useSelector(state => state.user.userinfo);
@@ -39,7 +39,7 @@ const CreateSub = () => {
 
   const onSubmit = async (data, resetForm) => {
     setLoading(true);
-    const name = data.category;
+    const name = data.sub;
     // console.log(data);
     try {
       const response = await createSubData({ name, parent: category }, token);
@@ -126,7 +126,7 @@ const CreateSub = () => {
             ))}
         </select>
       </div>
-      <CategoryForm onSubmit={onSubmit} />
+      <SubCategoryForm onSubmit={onSubmit} />
 
       <LocalSearch keyword={keyword} setKeyword={setKeyword} />
       <hr />

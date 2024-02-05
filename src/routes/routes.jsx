@@ -22,6 +22,7 @@ import CreateCategory from "../pages/admin/Category/CreateCategory";
 import CreateSub from "../pages/admin/Sub/CreateSub";
 import UpdateSubCategory from "../pages/admin/Sub/UpdateSubCategory";
 import CreateProduct from "../pages/admin/Product/CreateProduct";
+import Products from "../pages/admin/Products/Products";
 // import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -150,6 +151,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <CreateProduct />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "products",
+        element: (
+          <AdminRoute>
+            <Products />
           </AdminRoute>
         ),
       },

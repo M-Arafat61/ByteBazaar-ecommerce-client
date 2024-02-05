@@ -7,3 +7,7 @@ export const createProductData = async (product, authToken) => {
     },
   });
 };
+
+export const getProductsByCount = async count => {
+  return axiosPublic.get(`v1/products/${count}`);
+};
