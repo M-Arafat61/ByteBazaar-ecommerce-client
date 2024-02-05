@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 
+import { Button } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
 
@@ -136,7 +137,6 @@ const ProductForm = ({
           <select
             {...register("category", { required: true })}
             className='text-lg outline-none border px-2 py-1'
-            name='category'
             onChange={handleCategory}
           >
             <option value=''>Select category</option>
@@ -147,9 +147,9 @@ const ProductForm = ({
                 </option>
               ))}
           </select>
-          {errors.category && (
+          {/* {errors.category && (
             <span className='text-red-500'>Category is required!</span>
-          )}
+          )} */}
         </div>
         {subs && subs.length > 0 && (
           <>
@@ -165,12 +165,13 @@ const ProductForm = ({
           </>
         )}
 
-        <button
+        <Button
           type='submit'
-          className='bg-emerald-400 hover:cursor-pointer py-2 text-white uppercase font-semibold'
+          colorScheme='teal'
+          className='hover:cursor-pointer  uppercase font-semibold'
         >
           Save
-        </button>
+        </Button>
       </form>
     </div>
   );

@@ -10,8 +10,9 @@ import {
 } from "../../../api/category";
 import Loader from "../../../components/shared/Loader";
 import FileUpload from "../../../components/admin/Forms/FileUpload";
-import { Image } from "@chakra-ui/react";
+import { Image, Stack } from "@chakra-ui/react";
 import { CiCircleRemove } from "react-icons/ci";
+import { axiosPublic } from "../../../hooks/useAxiosPublic";
 
 const colors = [
   "Silver",
@@ -64,8 +65,31 @@ const CreateProduct = () => {
   // const handleFileUploadState = images => {
   //   setUploadedImages(images);
   // };
-  const handleImageRemove = () => {
-    //
+  const handleImageRemove = public_id => {
+    setLoading(true);
+    axiosPublic
+      .post(
+        "/v1/removeImage",
+        { public_id },
+        {
+          headers: {
+            authtoken: token,
+          },
+        }
+      )
+      .then(res => {
+        if (res) {
+          setLoading(false);
+          const filteredImages = uploadedImages.filter(image => {
+            return image.public_id !== public_id;
+          });
+          setUploadedImages(filteredImages);
+        }
+      })
+      .catch(err => {
+        console.log(err);
+        setLoading(false);
+      });
   };
 
   const onSubmit = async (data, resetForm) => {
@@ -129,12 +153,8 @@ const CreateProduct = () => {
           {uploadedImages.length > 0 &&
             uploadedImages.map(image => (
               <div className='relative' key={image.public_id}>
-                <Image
-                  borderRadius='full'
-                  boxSize='170px'
-                  src={image.url}
-                  alt='Dan Abramov'
-                />
+                <Image boxSize='140px' src={image.url} alt='Product Image' />
+
                 <CiCircleRemove
                   size={38}
                   className='absolute right-0 top-0 text-red-600 cursor-pointer'
