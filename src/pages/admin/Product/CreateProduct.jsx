@@ -90,7 +90,9 @@ const CreateProduct = () => {
       if (response.status == "200") {
         setLoading(false);
         toast.success(`Product creation successful.`);
-        // resetForm();
+        setSubs([]);
+        resetForm();
+        setUploadedImages([]);
       }
     } catch (error) {
       setLoading(false);

@@ -23,6 +23,7 @@ import CreateSub from "../pages/admin/Sub/CreateSub";
 import UpdateSubCategory from "../pages/admin/Sub/UpdateSubCategory";
 import CreateProduct from "../pages/admin/Product/CreateProduct";
 import Products from "../pages/admin/Products/Products";
+import UpdateProduct from "../pages/admin/Products/UpdateProduct";
 // import PrivateRoute from "./PrivateRoute";
 
 const router = createBrowserRouter([
@@ -159,6 +160,14 @@ const router = createBrowserRouter([
         element: (
           <AdminRoute>
             <Products />
+          </AdminRoute>
+        ),
+      },
+      {
+        path: "product/:slug",
+        element: (
+          <AdminRoute>
+            <UpdateProduct />
           </AdminRoute>
         ),
       },

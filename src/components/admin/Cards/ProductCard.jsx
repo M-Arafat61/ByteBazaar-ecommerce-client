@@ -1,7 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Swiper, SwiperSlide } from "swiper/react";
 import {
-  Box,
   Button,
   ButtonGroup,
   Card,
@@ -22,12 +21,13 @@ import "swiper/css/navigation";
 import { Pagination, Navigation } from "swiper/modules";
 import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import laptop from "../../../assets/defaultProduct.jpg";
+import { Link } from "react-router-dom";
 
-const ProductCard = ({ product }) => {
-  const { title, description, price, subs, images, color, brand } = product;
+const ProductCard = ({ product, handleProductDelete }) => {
+  const { title, description, price, subs, images, brand, slug } = product;
 
   return (
-    <Card maxW='xs' className='' variant='outline'>
+    <Card maxW='xs' height='md' className='' variant='outline'>
       <CardBody>
         <Swiper
           pagination={{
@@ -82,11 +82,17 @@ const ProductCard = ({ product }) => {
       <Divider />
       <CardFooter>
         <ButtonGroup spacing='5'>
-          <Button variant='solid' colorScheme='blue'>
-            <EditIcon className='mr-1' />
-            Edit
-          </Button>
-          <Button variant='solid' colorScheme='red'>
+          <Link to={`/admin/product/${slug}`}>
+            <Button variant='solid' colorScheme='blue'>
+              <EditIcon className='mr-1' />
+              Edit
+            </Button>
+          </Link>
+          <Button
+            onClick={() => handleProductDelete(slug)}
+            variant='solid'
+            colorScheme='red'
+          >
             <DeleteIcon className='mr-1' />
             Delete
           </Button>

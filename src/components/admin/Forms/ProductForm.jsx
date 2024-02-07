@@ -54,7 +54,7 @@ const ProductForm = ({
         {errors.description && (
           <span className='text-red-500'>Description is required!</span>
         )}
-        <div className='flex items-center justify-around'>
+        <div className='flex flex-wrap items-center justify-around'>
           <div className='flex flex-col space-y-1'>
             <label>Price</label>
             <input
@@ -83,7 +83,7 @@ const ProductForm = ({
             )}
           </div>
         </div>
-        <div className='flex items-center justify-around'>
+        <div className='flex items-center flex-wrap justify-around'>
           <div className='flex flex-col space-y-1'>
             <label>Quantity</label>
             <input
