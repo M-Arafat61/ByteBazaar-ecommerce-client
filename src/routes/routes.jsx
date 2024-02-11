@@ -164,7 +164,7 @@ const router = createBrowserRouter([
         ),
       },
       {
-        path: "product/:slug",
+        path: "products/:slug",
         element: (
           <AdminRoute>
             <UpdateProduct />

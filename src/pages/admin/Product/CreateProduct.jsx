@@ -8,11 +8,8 @@ import {
   getAllCategoriesData,
   getCategorySubsData,
 } from "../../../api/category";
-import Loader from "../../../components/shared/Loader";
+// import Loader from "../../../components/shared/Loader";
 import FileUpload from "../../../components/admin/Forms/FileUpload";
-import { Image } from "@chakra-ui/react";
-import { CiCircleRemove } from "react-icons/ci";
-import { axiosPublic } from "../../../hooks/useAxiosPublic";
 
 const colors = [
   "Silver",
@@ -34,7 +31,6 @@ const CreateProduct = () => {
   const [subs, setSubs] = React.useState([]);
   const [selectedSubs, setSelectedSubs] = React.useState([]);
   const [uploadedImages, setUploadedImages] = React.useState([]);
-
   const { token } = useSelector(state => state.user.userinfo);
 
   const { data, isLoading } = useQuery({
@@ -51,42 +47,12 @@ const CreateProduct = () => {
     }
   }, [isLoading, data]);
 
-  // const handleFileUploadState = images => {
-  //   setUploadedImages(images);
-  // };
-  const handleImageRemove = public_id => {
-    setLoading(true);
-    axiosPublic
-      .post(
-        "/v1/removeImage",
-        { public_id },
-        {
-          headers: {
-            authtoken: token,
-          },
-        }
-      )
-      .then(res => {
-        if (res) {
-          setLoading(false);
-          const filteredImages = uploadedImages.filter(image => {
-            return image.public_id !== public_id;
-          });
-          setUploadedImages(filteredImages);
-        }
-      })
-      .catch(err => {
-        console.log(err);
-        setLoading(false);
-      });
-  };
-
   const onSubmit = async (data, resetForm) => {
     setLoading(true);
-    console.log(data);
+    // console.log(data);
     try {
       const response = await createProductData(data, token);
-      console.log(response.data);
+      // console.log(response.data);
       if (response.status == "200") {
         setLoading(false);
         toast.success(`Product creation successful.`);
@@ -126,37 +92,24 @@ const CreateProduct = () => {
     setSelectedSubs(selectedOptions.map(option => option.value));
   };
 
-  // console.log(selectedSubs);
+  // console.log(loading);
   return (
     <div className='space-y-5'>
       <div className='w-full md:w-1/2 mx-auto text-xl md:text-3xl font-bold'>
-        {loading ? (
+        {/* {loading ? (
           <div className='text-red-500'>
             <Loader />
           </div>
-        ) : (
-          <p>Create Product</p>
-        )}
+        ) : ( */}
+        <p>Create Product</p>
+        {/* )} */}
       </div>
       <div className='border px-10 py-5 rounded-2xl'>
-        <div className='flex items-center gap-x-10'>
-          <FileUpload setUploadedImages={setUploadedImages} />
-          {uploadedImages.length > 0 &&
-            uploadedImages.map(image => (
-              <div className='relative' key={image.public_id}>
-                <Image boxSize='140px' src={image.url} alt='Product Image' />
-
-                <CiCircleRemove
-                  size={38}
-                  className='absolute right-0 top-0 text-red-600 cursor-pointer'
-                  onClick={() => handleImageRemove(image.public_id)}
-                />
-              </div>
-            ))}
-        </div>
-
-        <ProductForm
+        <FileUpload
           uploadedImages={uploadedImages}
+          setUploadedImages={setUploadedImages}
+        />
+        <ProductForm
           colors={colors}
           brands={brands}
           onSubmit={onSubmit}
@@ -166,6 +119,7 @@ const CreateProduct = () => {
           selectedSubs={selectedSubs}
           handleSubSelectChange={handleSubSelectChange}
           options={options}
+          uploadedImages={uploadedImages}
         />
       </div>
     </div>

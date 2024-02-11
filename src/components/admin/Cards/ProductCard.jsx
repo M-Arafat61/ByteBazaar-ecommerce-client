@@ -82,7 +82,7 @@ const ProductCard = ({ product, handleProductDelete }) => {
       <Divider />
       <CardFooter>
         <ButtonGroup spacing='5'>
-          <Link to={`/admin/product/${slug}`}>
+          <Link to={`/admin/products/${slug}`}>
             <Button variant='solid' colorScheme='blue'>
               <EditIcon className='mr-1' />
               Edit

@@ -63,7 +63,7 @@ const Products = () => {
     }
   };
 
-  console.log(products);
+  // console.log(products);
   if (status === "pending") return <Loader />;
   if (status === "error") return <span>Error: {error.message}</span>;
   return (

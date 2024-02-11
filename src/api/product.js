@@ -25,3 +25,12 @@ export const deleteProduct = async (slug, authToken) => {
 export const getSingleProduct = async slug => {
   return await axiosPublic.get(`/v1/product/${slug}`);
 };
+
+export const updateSingleProduct = async (slug, data, authToken) => {
+  return await axiosPublic.patch(`/v1/product/${slug}`, data, {
+    headers: {
+      authToken,
+    },
+    withCredentials: true,
+  });
+};
