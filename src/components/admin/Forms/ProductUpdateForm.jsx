@@ -25,7 +25,6 @@ const ProductUpdateForm = ({
     description,
     category,
     price,
-    images,
     shipping,
     quantity,
     color,
@@ -56,20 +55,21 @@ const ProductUpdateForm = ({
   // console.log("selectedSubs", selectedSubs);
   // console.log("subCat", subCat);
   // console.log(subs);
+
+  const subsToSubmit = selectedSubs.length > 0 ? selectedSubs : defaultSubs;
+
   // console.log(images);
-  // console.log(uploadedImages);
+  // console.log("uploadedImages", uploadedImages);
 
   return (
     <div>
       <form
         onSubmit={handleSubmit(data => {
-          const subsToSubmit =
-            selectedSubs.length > 0 ? selectedSubs : defaultSubs;
           onSubmit(
             {
               ...data,
               subs: subsToSubmit,
-              images: [...images, ...uploadedImages],
+              images: uploadedImages,
             },
             reset
           );

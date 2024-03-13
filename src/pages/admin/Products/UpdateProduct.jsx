@@ -80,6 +80,9 @@ const UpdateProduct = () => {
 
       fetchSubCategories();
     }
+    if (product?.images) {
+      setUploadedImages(product?.images);
+    }
   }, [product]);
 
   // console.log("uploadedImages", uploadedImages);
@@ -97,9 +100,6 @@ const UpdateProduct = () => {
   if (isFetching) {
     return <Loader />;
   }
-  // if (loading) {
-  //   return <Loader />;
-  // }
 
   if (error) {
     return toast.error(error?.message);
@@ -148,7 +148,7 @@ const UpdateProduct = () => {
   const handleSubSelectChange = selectedOptions => {
     setSelectedSubs(selectedOptions.map(option => option.value));
   };
-
+  console.log(loading);
   return (
     <div className='space-y-5'>
       <div className='w-full md:w-1/2 mx-auto text-xl md:text-3xl font-bold'>
@@ -157,7 +157,6 @@ const UpdateProduct = () => {
       <div className='border px-10 py-5 rounded-2xl'>
         <div className='flex items-center gap-x-10'>
           <FileUpload
-            images={product.images}
             uploadedImages={uploadedImages}
             setUploadedImages={setUploadedImages}
           />

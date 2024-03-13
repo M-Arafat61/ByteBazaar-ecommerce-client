@@ -34,3 +34,11 @@ export const updateSingleProduct = async (slug, data, authToken) => {
     withCredentials: true,
   });
 };
+
+export const getNewAndBestProducts = async (sort, order, limit) => {
+  return await axiosPublic.post(`/v1/products`, {
+    sort,
+    order,
+    limit,
+  });
+};

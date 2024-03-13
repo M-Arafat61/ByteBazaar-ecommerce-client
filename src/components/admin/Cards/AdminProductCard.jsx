@@ -23,7 +23,7 @@ import { DeleteIcon, EditIcon } from "@chakra-ui/icons";
 import laptop from "../../../assets/defaultProduct.jpg";
 import { Link } from "react-router-dom";
 
-const ProductCard = ({ product, handleProductDelete }) => {
+const AdminProductCard = ({ product, handleProductDelete }) => {
   const { title, description, price, subs, images, brand, slug } = product;
 
   return (
@@ -102,4 +102,4 @@ const ProductCard = ({ product, handleProductDelete }) => {
   );
 };
 
-export default ProductCard;
+export default AdminProductCard;
